@@ -1,0 +1,135 @@
+/* ==== Google Font Import - Poppins ==== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Root color variables */
+:root {
+    --body-color: #f5f3f3;
+    --nav-color: #194d9b;
+    --text-color: #FFF;
+    --hover-bg-color: white;
+    --hover-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--body-color);
+}
+
+/* Navigation bar styling */
+/* Navigation bar styling */
+nav {
+    position: fixed; /* Fixes the nav at the top */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width of the page */
+    height: 70px; /* Taskbar height */
+    background-color: var(--nav-color);
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+nav .nav-bar {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .logo a {
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    padding-left: 20px;
+}
+
+.nav-bar .nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar .nav-links li {
+    margin: 0 10px;
+    list-style: none;
+}
+
+.nav-links li a {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    position: relative;
+    padding: 8px;
+    margin: 5px;
+}
+
+.nav-links li a:hover {
+    opacity: 1;
+    background-color: var(--hover-bg-color);
+    box-shadow: var(--hover-shadow);
+    color: #010718;
+    border-radius: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* User info section */
+nav .user-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 15px;
+}
+
+.user-info button, .user-name {
+    background-color: white;
+    color: black;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 20px;
+    font-size: 15px;
+}
+
+.user-info button:hover, .user-name:hover {
+    background-color: #ddd;
+}
+
+.user-info .dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    display: none;
+    background-color: white;
+    padding: 5px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.user-info .dropdown button {
+    padding: 10px 15px;
+    color: black;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.user-info .dropdown button:hover {
+    background-color: #144d86;
+    color: #ddd;
+}
