@@ -9,19 +9,19 @@
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('HomePage') }}">SPORT FACILITIES BOOKING</a></li>
                     <li><a href="{{ route('HomePage') }}">VIEW BOOKED FACILITIES</a></li>
-                    <li><a href="{{ route('HomePage') }}">TEAM MANAGEMENT</a></li>
+                    <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('HomePage') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'DSAD')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('HomePage') }}">VIEW BOOKED FACILITIES</a></li>
-                    <li><a href="{{ route('HomePage') }}">TEAM MANAGEMENT</a></li>
+                    <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('HomePage') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'STUD')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('HomePage') }}">VIEW BOOKED FACILITIES</a></li>
-                    <li><a href="{{ route('HomePage') }}">TEAM MANAGEMENT</a></li>
+                    <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('HomePage') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'EORG')

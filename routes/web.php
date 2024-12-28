@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\M_AuthenticationController;
+use App\Http\Controllers\M_TeamManagementController;
 
 Route::view('/','Home')->name('HomePage');
 
@@ -11,3 +12,4 @@ Route::post('/Login', [M_AuthenticationController::class, 'login'])->name('login
 Route::get('/Logout', [M_AuthenticationController::class, 'logout'])->name('logout');
 
 //Team management routes
+Route::get('/TeamManagementPage',[M_TeamManagementController::class, 'getTeamManagementPage'])->name('TeamManagementPage');

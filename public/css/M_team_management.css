@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+    background-color: white;
+}
+#dashboard {
+    max-width: 1200px;
+    margin: 10% auto; 
+    padding: 20px;
+}
+
+#desasiswa_banner {
+    width: 100%; /* Stretch across the parent container */
+    border: 2px solid #194d9b;
+    background-color: #194d9b;
+    color: white; /* Ensure the text is white */
+    text-align: center; /* Center the text inside the banner */
+    border-radius: 8px 8px 0 0; /* Rounded corners only at the top */
+    font-weight: bold; /* Make the text bold */
+    padding: 1%;
+}
+
+
+#team_profile {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 0; /* Remove extra padding */
+    display: flex;
+    flex-direction: column; /* Stack content vertically (banner on top, rest below) */
+    margin-bottom: 20px;
+    
+}
+
+#team_profile ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 2%;
+}
+
+
+#team_logo {
+    width: 200px;
+    height: 200px;
+    background-color: #ddd;
+    border: 2px solid #bbb;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+
+#team_stat {
+    flex-grow: 1;
+}
+
+#team_stat ul {
+    display: block; /* Ensure the list itself behaves like a block element */
+    list-style: none; /* Remove bullets */
+    padding: 0;
+    margin: 0;
+}
+
+#team_stat ul li {
+    display: block; /* Ensure list items stack vertically */
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Add this CSS to highlight the active button */
+
+#team_nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#team_nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.team_navBtn {
+    padding: 10px 20px;
+    background-color:#194d9b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.active-btn {
+    background-color: #007bff;  /* Blue background (you can change this color) */
+    color: white;               /* White text */
+    border: 2px solid #0056b3; /* Darker blue border */
+}
+
+
+#table_container {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+}
+table {
+    border-collapse: collapse; /* Ensures borders collapse for consistency */
+    width: 100%; /* Optional: Adjust table width */
+}
+
+tr {
+    border: 3px solid #ccc; 
+   
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+button.manager-code ,button.deleteBtn, button.editBtn, button.createBtn {
+    font-weight: bold;
+    color: white;
+    border: none;
+    padding: 5px 25px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+button.accepted,button.accept,button.declined,button.accepted,button.delete,button.view-details, button #registerBtn{
+    /*font-weight: bold;*/
+    color: white;
+    border: 2px solid;
+    padding: 5px 25px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+button.manager-code , button.createBtn{
+    background-color: forestgreen;
+     /* Optional: Adds rounded corners */
+}
+
+button.manager-code:hover, button.createBtn:hover {
+    background-color: darkgreen; /* Optional: Adds hover effect */
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* Add spacing between buttons */
+}
+
+.create-btn-container {
+    display: flex;
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Vertically align items */
+    margin-bottom: 10px; /* Optional, adds space below the container */
+}
+
+/* Optional style for the paragraph */
+.create-btn-container p {
+    margin: 0; /* Removes default margin */
+}
+
+button.deleteBtn {
+    background-color: red;
+}
+
+button.deleteBtn:hover {
+    background-color: darkred;
+}
+
+
+button.editBtn {
+    background-color: #194d9b;
+}
+
+button.editBtn:hover {
+    background-color: #123975; /* Darker shade on hover */
+}
+
+/*modal style */
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .modal-actions {
+    padding: 10px;
+    text-align: right;
+    border-top: 1px solid #ccc;
+  }
+  
+  .modal-btn {
+    padding: 8px 16px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal-btn.cancel {
+    background: #f44336;
+    color: #fff;
+  }
+  
+  .modal-btn:not(.cancel) {
+    background: #194d9b;
+    color: #fff;
+  }
+  
+  /*sport team css*/
+  .team-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.member-item {
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+
+.team-card h3 {
+    margin: 0 0 10px;
+}
+
+.team-card .toggle-members {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.team-card .toggle-members:hover {
+    background-color: #0056b3;
+}
+
+
+.members-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.members-table th,
+.members-table td {
+    /*border: 1px solid #ccc;*/
+    padding: 8px;
+    text-align: center;
+}
+
+
+.members-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.members-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/*Events css*/
+.event-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-card:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.register-button,
+.registered-message,.registration-closed-message {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.register-button {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}
+
+.registered-message {
+    background-color: #007bff;
+    color: white;
+    cursor: not-allowed;
+}
+
+.comment-box {
+    border: 1px solid grey;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.registration-table th, .members-table th  {
+    background-color: #194d9b; /* Set the background color */
+    color: white; /* Set the text color to white for contrast */
+    padding: 10px; /* Optional: Add padding to make the header look better */
+    
+}
+.registration-table td {
+    background-color: white; /* Set the background color */
+    padding: 10px; /* Optional: Add padding to make the header look better */
+    
+}
+
+
+
+
