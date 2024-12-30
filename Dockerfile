@@ -43,35 +43,6 @@ RUN apt-get update \
     && mkdir -p /var/www/html/public && echo "index" > /var/www/html/public/index.php \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
-### PHP sqlsrv ext
-#pecl
-RUN apt-get update && apt-get install -y php-xml
-RUN apt-get update && apt-get install -y php-dev php-pear
-RUN apt-get update && apt-get install -y mcrypt php-mbstring php-mysql
-
-ENV ACCEPT_EULA=Y
-
-RUN apt-get update && apt-get install -y xz-utils
-RUN apt-get update && apt-get install -y gnupg2
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list #this is version - specific, Flyios image is ubuntu 20.04
-RUN apt-get update
-RUN ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql18 unixodbc-dev #specify the version, i use version 18: msodbcsql18
-# install ODBC Driver
-RUN apt-get install -y mssql-tools
-RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
-RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
-RUN exec bash
-
-# install driver sqlsrv
-RUN pecl install sqlsrv
-RUN pecl install pdo_sqlsrv
-
-#
-RUN printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php/8.2/mods-available/sqlsrv.ini
-RUN printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php/8.2/mods-available/pdo_sqlsrv.ini
-RUN phpenmod -v 8.2 sqlsrv pdo_sqlsrv
-
 
 # 2. Copy config files to proper locations
 COPY .fly/nginx/ /etc/nginx/

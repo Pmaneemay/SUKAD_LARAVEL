@@ -28,7 +28,7 @@ class M_AuthenticationController extends Controller
         if ($user && Hash::check($request->password, $user->password)) {
 
            
-            session(['role' => $user->role, 'profile' => $user->profile]);
+            session(['user_id' => $user->id, 'role' => $user->role, 'profile' => $user->profile]);
 
             return redirect()->route('HomePage');
         }
@@ -37,8 +37,7 @@ class M_AuthenticationController extends Controller
     }
 
     public function Logout (){
-        Session::forget('role');
-        Session::forget('profile');
+        Session::flush();
 
         return redirect()->route('HomePage');
 
