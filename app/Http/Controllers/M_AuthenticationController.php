@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log; 
@@ -19,16 +20,10 @@ class M_AuthenticationController extends Controller
             'password' => 'required',
         ]);
 
-        // Log the login attempt
-        Log::info('Login attempt with email: ' . $request->email);
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
-        // Retrieve the user from the database and eager load the profile
-        $user = \App\Models\User::where('email', $request->email)->first();
-
-        if ($user && Hash::check($request->password, $user->password)) {
-
-           
-            session(['user_id' => $user->id, 'role' => $user->role, 'profile' => $user->profile]);
+            $user = Auth::user();
+            session(['user_id' => $user->user_id, 'role' => $user->role, 'profile' => $user->profile]);
 
             return redirect()->route('HomePage');
         }

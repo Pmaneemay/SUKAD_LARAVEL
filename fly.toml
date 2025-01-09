@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for sukad on 2024-12-30T10:18:51+08:00
+# fly.toml app configuration file generated for sukad-cool-brook-1085 on 2025-01-06T11:42:50+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'sukad'
-primary_region = 'syd'
+app = 'sukad-cool-brook-1085'
+primary_region = 'hkg'
 console_command = 'php /var/www/html/artisan tinker'
 
 [build]
@@ -19,15 +19,10 @@ console_command = 'php /var/www/html/artisan tinker'
   LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
   SESSION_DRIVER = 'cookie'
   SESSION_SECURE_COOKIE = 'true'
-  DB_CONNECTION = "mysql"
-  DB_HOST = "mysql-1b88aba-mayratdaa-8e6f.d.aivencloud.com"  # Aiven MySQL host
-  DB_PORT = "24583"  # Aiven MySQL port
-  DB_DATABASE = "sukad"  # Your database name
-
 
 [http_service]
   internal_port = 8080
-  force_https = false
+  force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
