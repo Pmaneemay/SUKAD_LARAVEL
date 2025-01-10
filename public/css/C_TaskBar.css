@@ -116,17 +116,17 @@ nav .user-info {
     padding: 5px 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    width: 100px;
 }
 
-.user-info .dropdown button {
-    padding: 10px 15px;
+.user-info .dropdown a {
     color: black;
     border: none;
     width: 100%;
-    text-align: left;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 13px;
+    font-size: 15px;
+    padding-left: 20px;
 }
 
 .user-info .dropdown button:hover {

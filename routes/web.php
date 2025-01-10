@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\C_MatchupScheduleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\M_AuthenticationController;
 use App\Http\Controllers\M_TeamManagementController;
@@ -24,7 +25,5 @@ Route::middleware(['web'])->group(function () {
     Route::get('/facility/{facilityId}/availability', [FacilityBookingController::class, 'getAvailability']);
 });
 
-
-
-
-// Facility Booking routes
+//Matchup Schedule Routes
+Route::get('/MatchupPage', [C_MatchupScheduleController::class, 'getMatchupPage'])->name('MatchupPage');

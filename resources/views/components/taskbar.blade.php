@@ -8,29 +8,29 @@
                     <li><a href="{{ route('bookings.index') }}">SPORT FACILITIES BOOKING</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
-                    <li><a href="{{ route('HomePage') }}">MATCHUP SCHEDULE</a></li>
+                    <li><a href="{{ route('MatchupPage') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'DSAD')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
-                    <li><a href="{{ route('HomePage') }}">MATCHUP SCHEDULE</a></li>
+                    <li><a href="{{ route('MatchupPage') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'STUD')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
-                    <li><a href="{{ route('HomePage') }}">MATCHUP SCHEDULE</a></li>
+                    <li><a href="{{ route('MatchupPage') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'EORG')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
-                    <li><a href="{{ route('HomePage') }}">MATCHUP SCHEDULE</a></li>
+                    <li><a href="{{ route('MatchupPage') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('HomePage') }}">ANNOUNCEMENT CONTENT</a></li>
                     <li><a href="{{ route('HomePage') }}">SCORING</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW FACILITIES BOOKING</a></li>
                 @else
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
-                    <li><a href="{{ route('HomePage') }}">MATCHUP SCHEDULE</a></li>
+                    <li><a href="{{ route('MatchupPage') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
                 @endif
             </ul>
@@ -50,9 +50,9 @@
     </div>
 </nav>
 <script>
-        function toggleDropdown() {
-            const dropdown = document.getElementById('dropdownMenu');
-            const isVisible = dropdown.style.display === 'block';
-            dropdown.style.display = isVisible ? 'none' : 'block';
-        }
-    </script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdownMenu');
+        const isVisible = dropdown.style.display === 'block';
+        dropdown.style.display = isVisible ? 'none' : 'block';
+    }
+</script>
