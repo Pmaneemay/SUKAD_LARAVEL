@@ -1,0 +1,14 @@
+/* public/css/app.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 70px; /* Matches taskbar height */
+    padding: 20px; /* Optional padding for better layout */
+}

@@ -3,13 +3,28 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\M_AuthenticationController;
 use App\Http\Controllers\M_TeamManagementController;
+use App\Http\Controllers\FacilityBookingController;
 
-Route::view('/','Home')->name('HomePage');
+// Home Page Route
+Route::view('/', 'Home')->name('HomePage');
 
-//Authentication routes
+// Authentication Routes
 Route::get('/LoginPage', [M_AuthenticationController::class, 'getLoginPage'])->name('LoginPage');
 Route::post('/Login', [M_AuthenticationController::class, 'login'])->name('login.submit');
 Route::get('/Logout', [M_AuthenticationController::class, 'logout'])->name('logout');
 
-//Team management routes
-Route::get('/TeamManagementPage',[M_TeamManagementController::class, 'getTeamManagementPage'])->name('TeamManagementPage');
+// Team Management Routes
+Route::get('/TeamManagementPage', [M_TeamManagementController::class, 'getTeamManagementPage'])->name('TeamManagementPage');
+
+// Facility Booking Routes
+Route::middleware(['web'])->group(function () {
+    Route::get('/bookings', [FacilityBookingController::class, 'index'])->name('bookings.index');
+    Route::post('/bookings', [FacilityBookingController::class, 'store'])->name('bookings.store');
+    Route::get('/past-bookings', [FacilityBookingController::class, 'pastBookings'])->name('bookings.past');
+    Route::get('/facility/{facilityId}/availability', [FacilityBookingController::class, 'getAvailability']);
+});
+
+
+
+
+// Facility Booking routes
