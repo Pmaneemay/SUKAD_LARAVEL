@@ -26,4 +26,6 @@ Route::middleware(['web'])->group(function () {
 });
 
 //Matchup Schedule Routes
-Route::get('/MatchupPage', [C_MatchupScheduleController::class, 'getMatchupPage'])->name('MatchupPage');
+Route::post('/start-sukad', [C_MatchupScheduleController::class, 'startSukad']);
+Route::post('/end-sukad', [C_MatchupScheduleController::class, 'endSukad']);
+Route::get('/getMatchups', [C_MatchupScheduleController::class, 'getMatchupPage'])->name('getMatchups');
