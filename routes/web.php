@@ -16,6 +16,7 @@ Route::get('/Logout', [M_AuthenticationController::class, 'logout'])->name('logo
 
 // Team Management Routes
 Route::get('/TeamManagementPage', [M_TeamManagementController::class, 'getTeamManagementPage'])->name('TeamManagementPage');
+Route::get('/getTeamManagers',[M_TeamManagementController::class, 'getAllTeamManagers'])->name('getManagers');
 
 // Facility Booking Routes
 Route::middleware(['web'])->group(function () {
