@@ -23,6 +23,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('/bookings', [FacilityBookingController::class, 'store'])->name('bookings.store');
     Route::get('/past-bookings', [FacilityBookingController::class, 'pastBookings'])->name('bookings.past');
     Route::get('/facility/{facilityId}/availability', [FacilityBookingController::class, 'getAvailability']);
+    Route::post('/bookings/{id}/update-status', [FacilityBookingController::class, 'updateStatus'])->name('bookings.update-status');
 });
 
 //Matchup Schedule Routes

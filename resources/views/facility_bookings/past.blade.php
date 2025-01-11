@@ -13,6 +13,9 @@
                 <th>Date</th>
                 <th>Time Slot</th>
                 <th>Status</th>
+                @if (auth()->user()->role === 'EORG') <!-- Check if EORG -->
+                    <th>Actions</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -20,19 +23,57 @@
                 <tr>
                     <td>{{ $booking->facility->name }}</td>
                     <td>{{ $booking->booking_date }}</td>
-                    <td>{{ $booking->time_slot }}</td> <!-- Display timeslot -->
                     <td>
-                        @if ($booking->status == 'Pending')
-                            <span class="badge bg-warning text-dark">Pending</span>
-                        @elseif ($booking->status == 'Approved')
-                            <span class="badge bg-success">Approved</span>
+                        @if ($booking->timeSlot)
+                            {{ $booking->timeSlot->start_time }} - {{ $booking->timeSlot->end_time }}
                         @else
-                            <span class="badge bg-danger">Rejected</span>
+                            Not Available
                         @endif
                     </td>
+                    <td id="status-{{ $booking->id }}">
+                        <span class="badge bg-{{ $booking->status == 'Pending' ? 'warning text-dark' : ($booking->status == 'Approved' ? 'success' : 'danger') }}">
+                            {{ ucfirst($booking->status) }}
+                        </span>
+                    </td>
+                    @if (auth()->user()->role === 'EORG') <!-- Add buttons for EORG -->
+                        <td>
+                            <button class="btn btn-success btn-sm update-status" data-id="{{ $booking->id }}" data-status="Approved">Approve</button>
+                            <button class="btn btn-danger btn-sm update-status" data-id="{{ $booking->id }}" data-status="Rejected">Reject</button>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>
     </table>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).on('click', '.update-status', function () {
+        const bookingId = $(this).data('id');
+        const status = $(this).data('status');
+
+        $.ajax({
+            url: `/bookings/${bookingId}/update-status`,
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                status: status,
+            },
+            success: function (response) {
+                // Update the status on the page
+                $(`#status-${bookingId}`).html(`
+                    <span class="badge bg-${status === 'Approved' ? 'success' : 'danger'}">
+                        ${status}
+                    </span>
+                `);
+                alert('Booking status updated successfully!');
+            },
+            error: function (xhr) {
+                alert(xhr.responseJSON?.error || 'An error occurred. Please try again.');
+            }
+        });
+    });
+</script>
+@endpush

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\FacilityBooking;
 use App\Models\SportsFacility;
+use App\Models\TimeSlot;
 
 class FacilityBookingController extends Controller
 {
@@ -27,28 +28,22 @@ class FacilityBookingController extends Controller
             return response()->json(['error' => 'Date is required'], 400);
         }
 
-        // Fetch booked time slots for the given facility and date
+        // Fetch all time slots for the given facility
+        $timeSlots = TimeSlot::where('facility_id', $facilityId)->get();
+
+        // Fetch booked time slots for the given date
         $bookedSlots = FacilityBooking::where('facility_id', $facilityId)
             ->where('booking_date', $date)
             ->pluck('time_slot');
 
-        // Define standard time slots
-        $timeSlots = [
-            "10:00 AM",
-            "11:00 AM",
-            "12:00 PM",
-            "1:00 PM",
-            "2:00 PM",
-            "3:00 PM",
-        ];
-
         // Create response data
-        $response = array_map(function ($slot) use ($bookedSlots) {
+        $response = $timeSlots->map(function ($slot) use ($bookedSlots) {
             return [
-                'time' => $slot,
-                'available' => !$bookedSlots->contains($slot), // Mark unavailable if booked
+                'id' => $slot->id,
+                'time' => $slot->start_time . ' - ' . $slot->end_time,
+                'available' => !$bookedSlots->contains($slot->id), // Mark unavailable if booked
             ];
-        }, $timeSlots);
+        });
 
         return response()->json(['timeSlots' => $response]);
     }
@@ -61,24 +56,23 @@ class FacilityBookingController extends Controller
         $request->validate([
             'facility_id' => 'required|exists:sports_facilities,id',
             'booking_date' => 'required|date',
-            'time_slot' => 'required|string', // Ensure time_slot is validated
+            'time_slot' => [
+                'required',
+                'integer',
+                function ($attribute, $value, $fail) use ($request) {
+                    $timeSlot = \App\Models\TimeSlot::find($value);
+                    if (!$timeSlot || $timeSlot->facility_id != $request->facility_id) {
+                        $fail('The selected time slot is invalid for this facility.');
+                    }
+                },
+            ],
         ]);
-
-        // Check if the time slot is already booked
-        $isBooked = FacilityBooking::where('facility_id', $request->facility_id)
-            ->where('booking_date', $request->booking_date)
-            ->where('time_slot', $request->time_slot)
-            ->exists();
-
-        if ($isBooked) {
-            return response()->json(['error' => 'This time slot has already been booked. Please choose another.'], 400);
-        }
 
         FacilityBooking::create([
             'facility_id' => $request->facility_id,
             'booking_date' => $request->booking_date,
-            'time_slot' => $request->time_slot, // Save time_slot
-            'user_id' => auth()->id(), // Ensure the user ID is correctly retrieved
+            'time_slot' => $request->time_slot,
+            'user_id' => auth()->id(),
             'status' => 'Pending',
         ]);
 
@@ -89,12 +83,36 @@ class FacilityBookingController extends Controller
      * Fetch past bookings for the logged-in user.
      */
     public function pastBookings()
-    {
-        $bookings = FacilityBooking::with('facility')
-            ->where('user_id', auth()->id()) // Assuming the user is authenticated
-            ->orderBy('booking_date', 'desc')
-            ->get();
+{
+    $user = auth()->user();
+    $bookings = FacilityBooking::with(['facility', 'timeSlot'])
+        ->orderBy('booking_date', 'desc')
+        ->get();
 
-        return view('facility_bookings.past', compact('bookings'));
+    \Log::info('Fetched bookings', ['role' => $user->role, 'bookings' => $bookings]); // Debug log
+
+    return view('facility_bookings.past', compact('bookings'));
+}
+
+    /**
+     * Update the status of a booking.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:Approved,Rejected',
+        ]);
+//find booking by ID
+        $booking = FacilityBooking::findOrFail($id);
+
+        // Only allow EORG to update statuses
+        if (auth()->user()->role !== 'EORG') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+        //update status
+        $booking->status = $request->status;
+        $booking->save();
+
+        return response()->json(['success' => 'Booking status updated successfully!']);
     }
 }
