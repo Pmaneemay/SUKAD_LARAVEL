@@ -34,29 +34,25 @@
 </body>
 </html>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-    let role = session('role');
-    let desasiswa_id = session('profile').desasiswa_id;
-
-    get_team_Manager(desasiswa_id);
-
-   
+    
+    get_team_Manager();
 });
 
-function get_team_Manager(desasiswa_id){
+function get_team_Manager(){
+    var desasiswaId = "{{ session('profile')->desasiswa_id }}";
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url : "{{ url('getManagers') }}",
-        data : {
-            'desasiswa_id' : desasiswa_id
-        },
+        data : {desasiswa_id : desasiswaId},
         type : 'GET',
         dataType : 'json',
         success : function(res){
-            console.log(res.data);
+            $('#table_container').html(res.html);
 
         },
         error: function(xhr, status, error) {

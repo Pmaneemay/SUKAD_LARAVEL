@@ -13,4 +13,6 @@ class Sport extends Model
         'sport_id',
         'sport_name',
     ];
+
+    protected $primaryKey = 'sport_id';
 }

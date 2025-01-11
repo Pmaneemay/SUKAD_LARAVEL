@@ -1,6 +1,7 @@
 <div class="create-btn-container">
     <p>Total: {{ $total_manager }}</p>
     <button class="createBtn">Create</button>
+</div>
     <table>
         <thead>
             <tr>
@@ -26,8 +27,8 @@
                         </td>
                         <td>
                             <div class="button-group">
-                                <button class="deleteBtn" data-name="{{ $manager->name }}">Delete</button>
-                                <button class="editBtn" data-name="{{ $manager->name }}">Edit</button>
+                                <button class="deleteBtn" data-id="{{ $manager->user_id }}">Delete</button>
+                                <button class="editBtn" data-name="{{ $manager->user_id }}">Edit</button>
                             </div>
                         </td>
                     </tr>
@@ -39,7 +40,6 @@
             @endif
         </tbody>
     </table>
-</div>
 
 <script>
    
