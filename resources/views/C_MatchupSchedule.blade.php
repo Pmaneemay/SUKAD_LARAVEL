@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/C_MatchupSchedule.css') }}">
     <link rel="stylesheet" href="{{ asset('css/C_TaskBar.css') }}">
 </head>
+
 <body>
     <x-taskbar />
 
@@ -17,8 +18,13 @@
         </div>
         <div class="button-sukad">
             @if(session('role') == 'EORG')
-                <button id="start-button" class="start">START SUKAD</button>
-                <button id="end-button" class="end" disabled>END SUKAD</button>
+                @if ($status->start)
+                    <button id="start-button" class="start" onclick="startSukad()" disabled>START SUKAD</button>
+                    <button id="end-button" class="end" onclick="endSukad()">END SUKAD</button>
+                @else
+                    <button id="start-button" class="start" onclick="startSukad()">START SUKAD</button>
+                    <button id="end-button" class="end" onclick="endSukad()" disabled>END SUKAD</button>
+                @endif
             @endif
         </div>
     </main>
@@ -38,157 +44,278 @@
                 TENNIS
             </button>
         </div>
-    
-        <div id="matchups"></div>
+
+        <div id="matchups">
+            </div>
+
         <div id="loading" class="loading">Loading matchups...</div>
+
         <div id="notification-modal" class="modal">
             <div class="modal-content">
                 <span class="close-button" onclick="closeNotification()">&times;</span>
                 <p id="notification-message"></p>
             </div>
-        </div>    
+        </div>
     </section>
-    
 
     <footer>
         <p>&copy; 2024 SUKAD Event Management</p>
     </footer>
 
-    <script src="{{ asset('js/C_taskbar.js') }}"></script> 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeTaskBar();
+        // Function to get the SUKAD status and update the buttons
+        function updateSukadButtons() {
+            fetch("{{ route('getSukadStatus') }}")
+                .then(response => response.json())
+                .then(data => {
+                    const startButton = document.getElementById('start-button');
+                    const endButton = document.getElementById('end-button');
 
-            const startButton = document.getElementById('start-button');
-            const endButton = document.getElementById('end-button');
+                    if (data.start) {
+                        startButton.disabled = true;
+                        endButton.disabled = false;
+                    } else {
+                        startButton.disabled = false;
+                        endButton.disabled = true;
+                        matchupsDiv.innerHTML = "<p class='no-matchups-message'>No matchups available. SUKAD has not yet started.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error getting SUKAD status:', error);
+                });
+        }
 
-            if (startButton) {
-                startButton.addEventListener('click', startSukad);
-            }
-
-            if (endButton) {
-                endButton.addEventListener('click', endSukad);
-            }
-        });
+        // Call updateSukadButtons on page load
+        updateSukadButtons();
 
         function startSukad() {
-            fetch('/start-sukad', { 
+
+            // Disable the "START SUKAD" button and enable the "END SUKAD" button
+            document.getElementById('start-button').disabled = true;
+            document.getElementById('end-button').disabled = false;
+
+            const matchupsDiv = document.getElementById('matchups');
+            matchupsDiv.innerHTML = '';  // Clear previous content
+
+            document.getElementById('matchups').innerHTML = ''; 
+
+            // Make an AJAX request to the startSukad route
+            fetch("{{ route('startSukad') }}", {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
             })
             .then(response => response.json())
             .then(data => {
-                displayNotification(data.message);
+
+                document.getElementById('matchups').innerHTML = ''; 
+
+                // Show a success notification
+                showNotification("SUKAD has started! Schedules generated for all sports.");
             })
-            .catch(error => console.error('Error starting SUKAD:', error));
+            .catch(error => {
+                console.error('Error starting SUKAD:', error);
+
+                document.getElementById('matchups').innerHTML = ''; 
+
+                // Show an error notification
+                showNotification("SUKAD has started! Schedules generated for all sports.");
+            });
+
+            // Disable the "START SUKAD" button and enable the "END SUKAD" button
+            document.getElementById('start-button').disabled = true;
+            document.getElementById('end-button').disabled = false;
         }
 
         function endSukad() {
-            fetch('/end-sukad', { 
+            // Add a confirmation dialog
+            if (!confirm("Are you sure you want to end SUKAD? This will delete all matchup schedules.")) {
+                    return; // Cancel if the user clicks "Cancel"
+            }
+
+            const matchupsDiv = document.getElementById('matchups');
+            matchupsDiv.innerHTML = '';  // Clear previous content
+
+            // Disable the "END SUKAD" button and enable the "START SUKAD" button
+            document.getElementById('end-button').disabled = true;
+            document.getElementById('start-button').disabled = false;
+
+            fetch("{{ route('endSukad') }}", {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
             })
             .then(response => response.json())
             .then(data => {
-                const matchupsDiv = document.getElementById('matchups');
-                matchupsDiv.innerHTML = '';
-                displayNotification(data.message);
+                // Hide the loading state
+                document.getElementById('loading').style.display = 'none';
+
+                // Show a success notification
+                showNotification(data.message);
+
+                // Clear the displayed matchups
+                document.getElementById('matchups').innerHTML = ''; 
+                matchupsDiv.innerHTML = "<p class='no-matchups-message'>No matchups available. SUKAD has not yet started.</p>";
             })
-            .catch(error => console.error('Error ending SUKAD:', error));
+            .catch(error => {
+                console.error('Error ending SUKAD:', error);
+
+                // Hide the loading state
+                document.getElementById('loading').style.display = 'none';
+
+                // Show an error notification
+                showNotification('An error occurred while ending SUKAD.');
+
+                // Re-enable the "END SUKAD" button
+                document.getElementById('end-button').disabled = false; 
+            });
         }
 
         function loadMatchups(sport) {
-            selectedSport = sport;
+            selectedSport = sport; 
             const matchupsDiv = document.getElementById('matchups');
-            matchupsDiv.innerHTML = '';
+            matchupsDiv.innerHTML = '';  // Clear previous content
 
+            // Remove "active" class from all sport buttons
             const buttons = document.querySelectorAll('.sport-button');
             buttons.forEach(button => button.classList.remove('active'));
+
+            // Add "active" class to the clicked button
             const activeButton = document.querySelector(`.sport-button[onclick="loadMatchups('${sport}')"]`);
             activeButton.classList.add('active');
 
-            showLoading();
+            showLoading()
 
-            fetch(`/get-matchups/${sport}`) 
+            // Make an AJAX request to the getMatchupsData route
+            fetch(`{{ route('getMatchupsData') }}?sport=${sport}`)
                 .then(response => response.json())
-                .then(matchups => {
-                    setTimeout(() => {
-                        const round1Title = document.createElement('h2');
-                        round1Title.textContent = 'ROUND 1';
-                        matchupsDiv.appendChild(round1Title);
+                .then(data => {
+                    // Hide the loading state
+                    document.getElementById('loading').style.display = 'none';
 
-                        matchups.forEach((match, index) => {
-                            const matchDiv = document.createElement('div');
-                            matchDiv.classList.add('matchup');
+                    // Display the matchups in the "matchups" div
+                    displayMatchups(data);
+                })
+                
+        }
 
-                            const matchNumber = document.createElement('div');
-                            matchNumber.classList.add('match-number');
-                            matchNumber.textContent = `MATCH ${index + 1}`;
+        function displayMatchups(matchups) {
+            const matchupsDiv = document.getElementById('matchups');
+            matchupsDiv.innerHTML = ''; // Clear previous matchups
 
-                            const matchupContainer = document.createElement('div');
-                            matchupContainer.classList.add('matchup-container');
+            if (matchups.length === 0) {
+                matchupsDiv.innerHTML = "<p class='no-matchups-message'>No matchups available. SUKAD has not yet started.</p>";
+                return;
+            }
 
-                            const team1Div = document.createElement('div');
-                            team1Div.classList.add('team');
+            // Group matchups by group_name
+            const groupedMatchups = matchups.reduce((acc, matchup) => {
+                acc[matchup.group_name] = (acc[matchup.group_name] || []).concat(matchup);
+                return acc;
+            }, {});
+
+            // Iterate over each group and display matchups
+            for (const groupName in groupedMatchups) {
+                const groupTitle = document.createElement('h2');
+                groupTitle.textContent = `Group ${groupName}`;
+                matchupsDiv.appendChild(groupTitle);
+
+                groupedMatchups[groupName].forEach((matchup, index) => {
+                    const matchDiv = document.createElement('div');
+                    matchDiv.classList.add('matchup');
+
+                    const matchNumber = document.createElement('div');
+                    matchNumber.classList.add('match-number');
+                    matchNumber.textContent = `MATCH ${index + 1}`;
+
+                    const matchupContainer = document.createElement('div');
+                    matchupContainer.classList.add('matchup-container');
+
+                    const team1Div = document.createElement('div');
+                    team1Div.classList.add('team');
+
+                    const vsDiv = document.createElement('span');
+                    vsDiv.classList.add('vs');
+                    vsDiv.textContent = 'VS';
+
+                    const team2Div = document.createElement('div');
+                    team2Div.classList.add('team');
+
+                    // Fetch team logos for Team 1
+                    fetch(`/getDesasiswaLogo?desasiswa_id=${matchup.team1_id}`)
+                        .then(response => response.json())
+                        .then(data => {
                             team1Div.innerHTML = `
-                                <img src="Image/${match.team1.desasiswa_id.toLowerCase()}.png" class="team-logo" alt="${match.team1.desasiswa_name} logo">
-                                <span>${match.team1.desasiswa_name}</span>
+                                <img src="${data.logo_path}" class="team-logo" alt="${matchup.team1_name} logo">
+                                <span>${matchup.team1_name}</span>
                             `;
-
-                            const vsDiv = document.createElement('span');
-                            vsDiv.classList.add('vs');
-                            vsDiv.textContent = 'VS';
-
-                            const team2Div = document.createElement('div');
-                            team2Div.classList.add('team');
-                            team2Div.innerHTML = `
-                                <img src="Image/${match.team2.desasiswa_id.toLowerCase()}.png" class="team-logo" alt="${match.team2.desasiswa_name} logo">
-                                <span>${match.team2.desasiswa_name}</span>
-                            `;
-
-                            matchupContainer.appendChild(team1Div);
-                            matchupContainer.appendChild(vsDiv);
-                            matchupContainer.appendChild(team2Div);
-
-                            matchDiv.appendChild(matchNumber);
-                            matchDiv.appendChild(matchupContainer);
-                            matchupsDiv.appendChild(matchDiv);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching team 1 logo:', error);
+                            team1Div.innerHTML = `<span>${matchup.team1_name}</span>`;
                         });
 
-                        hideLoading();
-                    }, 1000);
-                })
-                .catch(error => console.error('Error loading matchups:', error));
+                    // Add the VS element to the container
+                    matchupContainer.appendChild(team1Div);
+                    matchupContainer.appendChild(vsDiv);
+
+                    // Fetch team logos for Team 2
+                    fetch(`/getDesasiswaLogo?desasiswa_id=${matchup.team2_id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            team2Div.innerHTML = `
+                                <img src="${data.logo_path}" class="team-logo" alt="${matchup.team2_name} logo">
+                                <span>${matchup.team2_name}</span>
+                            `;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching team 2 logo:', error);
+                            team2Div.innerHTML = `<span>${matchup.team2_name}</span>`;
+                        });
+
+                    // Add team2Div after the fetch
+                    matchupContainer.appendChild(team2Div);
+
+                    matchDiv.appendChild(matchNumber);
+                    matchDiv.appendChild(matchupContainer);
+                    matchupsDiv.appendChild(matchDiv);
+                });
+            }
         }
 
-        function showLoading() {
-            document.getElementById('loading').style.display = 'block';
-        }
 
-        function hideLoading() {
-            document.getElementById('loading').style.display = 'none';
-        }
-
-        function displayNotification(message, callback) {
+        function showNotification(message) {
             const modal = document.getElementById('notification-modal');
             const messageElement = document.getElementById('notification-message');
+
+            // Set the message in the pop-up
             messageElement.textContent = message;
+
+            // Show the modal
             modal.style.display = 'flex';
+
+            // Automatically close the pop-up after 2 seconds
             setTimeout(() => {
                 closeNotification();
-                if (callback) {
-                    callback();
-                }
             }, 2000);
         }
 
         function closeNotification() {
-            const modal = document.getElementById('notification-modal');
-            modal.style.display = 'none';
+            document.getElementById('notification-modal').style.display = 'none';
+        }
+
+        // Show loading state
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        // Hide loading state
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
         }
     </script>
 </body>

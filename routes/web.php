@@ -28,6 +28,10 @@ Route::middleware(['web'])->group(function () {
 });
 
 //Matchup Schedule Routes
-Route::post('/start-sukad', [C_MatchupScheduleController::class, 'startSukad']);
-Route::post('/end-sukad', [C_MatchupScheduleController::class, 'endSukad']);
 Route::get('/getMatchups', [C_MatchupScheduleController::class, 'getMatchupPage'])->name('getMatchups');
+Route::get('/getDesasiswaLogo', [C_MatchupScheduleController::class, 'getDesasiswaLogo'])->name('getDesasiswaLogo');
+Route::post('/startSukad', [C_MatchupScheduleController::class, 'startSukad'])->name('startSukad');
+Route::post('/endSukad', [C_MatchupScheduleController::class, 'endSukad'])->name('endSukad');
+Route::get('/getMatchupsData', [C_MatchupScheduleController::class, 'getMatchups'])->name('getMatchupsData'); 
+Route::get('/getSukadStatus', [C_MatchupScheduleController::class, 'getSukadStatus'])->name('getSukadStatus');
+

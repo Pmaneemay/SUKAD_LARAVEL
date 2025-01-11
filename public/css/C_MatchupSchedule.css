@@ -116,9 +116,26 @@ body {
 .matchup-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 100px; /* Increase space between teams */
+    justify-content: space-between; /* Space out items with VS in the middle */
+    gap: 20px; /* Adjust gap if needed */
     margin-top: 15px;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.vs {
+    flex: 0; /* Ensure "VS" does not stretch */
+    text-align: center;
+    white-space: nowrap;
+    margin: 0 20px;
+    font-size: 40px; /* Slightly larger VS text */
+    font-weight: bold;
+    color: #333;
 }
 
 .matchup-group-a:hover {
@@ -136,22 +153,10 @@ body {
     margin-bottom: 15px;
 }
 
-.team {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .team-logo {
     width: 100px; 
     height: 100px;
     margin-bottom: 10px;
-}
-
-.vs {
-    font-size: 40px; /* Slightly larger VS text */
-    font-weight: bold;
-    color: #333;
 }
 
 h2 {
