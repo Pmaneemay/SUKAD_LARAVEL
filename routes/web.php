@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\C_AnnouncementController;
 use App\Http\Controllers\C_MatchupScheduleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\M_AuthenticationController;
@@ -35,3 +36,7 @@ Route::post('/endSukad', [C_MatchupScheduleController::class, 'endSukad'])->name
 Route::get('/getMatchupsData', [C_MatchupScheduleController::class, 'getMatchups'])->name('getMatchupsData'); 
 Route::get('/getSukadStatus', [C_MatchupScheduleController::class, 'getSukadStatus'])->name('getSukadStatus');
 
+//Announcement Routes
+Route::get('/Announcement', [C_AnnouncementController::class, 'getAnnouncementPage'])->name('Announcement');
+Route::post('/saveAnnouncement', [C_AnnouncementController::class, 'saveAnnouncement'])->name('saveAnnouncement');
+Route::get('/getAnnouncements', [C_AnnouncementController::class, 'getAnnouncements'])->name('getAnnouncements');

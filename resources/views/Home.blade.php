@@ -17,10 +17,9 @@
 
     <section class="announcement">
         <h1>ANNOUNCEMENT</h1>
-        <div id="announcementSection"></div> <!-- Announcement will be displayed here -->
+        <div id="announcementSection"></div> 
     </section>
 
-    <!-- ABOUT Section -->
     <section class="about">
         <h1>ABOUT</h1>
         <div class="about-content">
@@ -32,5 +31,95 @@
     <footer>
         <p>&copy; 2024 SUKAD Event Management</p>
     </footer>
+
+    <script>
+        let currentAnnouncementIndex = 0; 
+        let announcements = []; 
+        fetchAnnouncements();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchAnnouncements();
+            startAutoCycle();
+        });
+
+        function fetchAnnouncements() {
+            fetch("{{ route('getAnnouncements') }}")
+                .then(response => response.json())
+                .then(data => {
+                    announcements = data; 
+                    displayAnnouncement(currentAnnouncementIndex);
+                })
+                .catch(error => console.error('Error fetching announcements:', error));
+        }
+
+        function displayAnnouncement(index) {
+            const announcementSection = document.getElementById('announcementSection');
+            const announcement = announcements[index];
+
+            if (announcement) {
+                const announcementDiv = document.createElement('div');
+                announcementDiv.classList.add('announcement-box'); 
+
+                if (announcement.image_path) {
+                    const image = document.createElement('img');
+                    image.src = announcement.image_path; 
+                    image.alt = "Announcement Image";
+                    announcementDiv.appendChild(image);
+                }
+
+                if (announcement.content) {
+                    const text = document.createElement('p');
+                    text.textContent = announcement.content;
+                    text.style.color = announcement.color;
+                    text.style.fontWeight = announcement.bold ? 'bold' : 'normal';
+                    text.style.fontStyle = announcement.italic ? 'italic' : 'normal';
+                    text.style.textDecoration = announcement.underline ? 'underline' : 'none';
+                    announcementDiv.appendChild(text);
+                }
+
+                const buttonContainer = document.createElement('div');
+                buttonContainer.classList.add('button-container');
+
+                const prevButton = document.createElement('button');
+                prevButton.id = 'prevButton';
+                prevButton.textContent = '<'; 
+                prevButton.addEventListener('click', prevAnnouncement);
+                buttonContainer.appendChild(prevButton);
+
+                const nextButton = document.createElement('button');
+                nextButton.id = 'nextButton';
+                nextButton.textContent = '>'; 
+                nextButton.addEventListener('click', nextAnnouncement);
+                buttonContainer.appendChild(nextButton);
+
+                announcementDiv.appendChild(buttonContainer);
+
+                announcementSection.innerHTML = ''; 
+                announcementSection.appendChild(announcementDiv);
+            } else {
+                announcementSection.innerHTML = `
+                    <div class="no-announcement-box">
+                        No Announcement
+                    </div>
+                `;
+            }
+        }
+
+        function nextAnnouncement() {
+            currentAnnouncementIndex = (currentAnnouncementIndex + 1) % announcements.length;
+            displayAnnouncement(currentAnnouncementIndex);
+        }
+
+        function prevAnnouncement() {
+            currentAnnouncementIndex = (currentAnnouncementIndex - 1 + announcements.length) % announcements.length;
+            displayAnnouncement(currentAnnouncementIndex);
+        }
+
+        function startAutoCycle() {
+            setInterval(() => {
+                nextAnnouncement();
+            }, 3000); 
+        }
+    </script>
 </body>
 </html>

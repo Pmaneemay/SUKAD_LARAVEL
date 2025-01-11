@@ -25,7 +25,7 @@
                 @elseif(session('role') == 'EORG')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('HomePage') }}">ANNOUNCEMENT CONTENT</a></li>
+                    <li><a href="{{ route('Announcement') }}">ANNOUNCEMENT CONTENT</a></li>
                     <li><a href="{{ route('HomePage') }}">SCORING</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW FACILITIES BOOKING</a></li>
                 @else
