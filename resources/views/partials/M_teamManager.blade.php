@@ -23,7 +23,7 @@
                         <td class="managerSport">{{ $manager->sport_name ?? 'N/A' }}</td>
                         <td class="managerSportID" style="display: none;">{{ $manager->Sport_id ?? 'N/A' }}</td>
                         <td>
-                            <button class="manager-code" data-code="{{ $manager->code }}">Copy</button>
+                            <button class="manager-code" data-code="{{ $manager->registration_code }}">Copy</button>
                         </td>
                         <td>
                             <div class="button-group">
@@ -40,7 +40,3 @@
             @endif
         </tbody>
     </table>
-
-<script>
-   
-</script>
