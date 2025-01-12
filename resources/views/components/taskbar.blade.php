@@ -9,29 +9,29 @@
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
+                    <li><a href="{{ route('score.input') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'DSAD')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
+                    <li><a href="{{ route('score.input') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'STUD')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
+                    <li><a href="{{ route('score.input') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'EORG')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
                     <li><a href="{{ route('Announcement') }}">ANNOUNCEMENT CONTENT</a></li>
-                    <li><a href="{{ route('HomePage') }}">SCORING</a></li>
+                    <li><a href="{{ route('score.input') }}">SCORING</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW FACILITIES BOOKING</a></li>
                 @else
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('HomePage') }}">LIVE SCORE</a></li>
+                    <li><a href="{{ route('score.input') }}">LIVE SCORE</a></li>
                 @endif
             </ul>
         </div>

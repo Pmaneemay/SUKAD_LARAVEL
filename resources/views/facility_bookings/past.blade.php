@@ -13,7 +13,9 @@
                 <th>Date</th>
                 <th>Time Slot</th>
                 <th>Status</th>
-                @if (auth()->user()->role === 'EORG') <!-- Check if EORG -->
+                <th>Booked By</th>
+                <th>Desasiswa</th> <!-- New column -->
+                @if (auth()->user()->role === 'EORG')
                     <th>Actions</th>
                 @endif
             </tr>
@@ -21,7 +23,7 @@
         <tbody>
             @foreach ($bookings as $booking)
                 <tr>
-                    <td>{{ $booking->facility->name }}</td>
+                    <td>{{ $booking->facility->name ?? 'Unknown Facility' }}</td>
                     <td>{{ $booking->booking_date }}</td>
                     <td>
                         @if ($booking->timeSlot)
@@ -35,7 +37,9 @@
                             {{ ucfirst($booking->status) }}
                         </span>
                     </td>
-                    @if (auth()->user()->role === 'EORG') <!-- Add buttons for EORG -->
+                    <td>{{ $booking->manager?->name ?? 'Unknown Manager' }}</td>
+                    <td>{{ $booking->manager?->desasiswa?->desasiswa_name ?? 'Unknown Desasiswa' }}</td> <!-- Display Desasiswa Name -->
+                    @if (auth()->user()->role === 'EORG')
                         <td>
                             <button class="btn btn-success btn-sm update-status" data-id="{{ $booking->id }}" data-status="Approved">Approve</button>
                             <button class="btn btn-danger btn-sm update-status" data-id="{{ $booking->id }}" data-status="Rejected">Reject</button>
