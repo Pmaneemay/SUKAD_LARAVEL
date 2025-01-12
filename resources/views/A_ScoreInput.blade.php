@@ -18,57 +18,24 @@
 
     <!-- Inline JS -->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Static data to test page rendering
-            const staticData = {
-                "Football": [
-                    {
-                        "match": "Match 1",
-                        "matchCode": "M1",
-                        "teamA": { "name": "Team A", "logo": "teamA_logo.png" },
-                        "teamB": { "name": "Team B", "logo": "teamB_logo.png" }
-                    },
-                    {
-                        "match": "Match 2",
-                        "matchCode": "M2",
-                        "teamA": { "name": "Team C", "logo": "teamC_logo.png" },
-                        "teamB": { "name": "Team D", "logo": "teamD_logo.png" }
-                    }
-                ],
-                "Netball": [
-                    {
-                        "match": "Match 1",
-                        "matchCode": "M1",
-                        "teamA": { "name": "Team E", "logo": "teamE_logo.png" },
-                        "teamB": { "name": "Team F", "logo": "teamF_logo.png" }
-                    }
-                ],
-                "Basketball": [
-                    {
-                        "match": "Match 1",
-                        "matchCode": "M1",
-                        "teamA": { "name": "Team G", "logo": "teamG_logo.png" },
-                        "teamB": { "name": "Team H", "logo": "teamH_logo.png" }
-                    },
-                    {
-                        "match": "Match 2",
-                        "matchCode": "M2",
-                        "teamA": { "name": "Team I", "logo": "teamI_logo.png" },
-                        "teamB": { "name": "Team J", "logo": "teamJ_logo.png" }
-                    }
-                ],
-                "Tennis": [
-                    {
-                        "match": "Match 1",
-                        "matchCode": "M1",
-                        "teamA": { "name": "Team K", "logo": "teamK_logo.png" },
-                        "teamB": { "name": "Team L", "logo": "teamL_logo.png" }
-                    }
-                ]
-            };
+    document.addEventListener("DOMContentLoaded", () => {
+        // Data from the server-side grouped by sport
+        const groupedMatchups = @json($groupedMatchups);
 
-            displaySportButtons(staticData); // Display sport selection buttons
+        // Convert grouped matchups into a simpler structure for JS processing
+        const formattedData = {};
+        Object.keys(groupedMatchups).forEach(sportId => {
+            const matches = groupedMatchups[sportId].map(match => ({
+                match: `Match ID: ${match.match_id}`,
+                matchCode: match.match_id,
+                teamA: match.teamA,
+                teamB: match.teamB,
+            }));
+            formattedData[`Sport ${sportId}`] = matches;
         });
+
+        displaySportButtons(formattedData); // Display sport buttons with matchups
+    });
 
         let savedMatches = {}; // Track saved scores for each sport
         let tableCreated = {}; // To track if table has been created for each sport

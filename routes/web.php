@@ -7,6 +7,7 @@ use App\Http\Controllers\M_AuthenticationController;
 use App\Http\Controllers\M_TeamManagementController;
 use App\Http\Controllers\FacilityBookingController;
 use App\Http\Controllers\A_ScoreController;
+
 // Home Page Route
 Route::view('/', 'Home')->name('HomePage');
 
