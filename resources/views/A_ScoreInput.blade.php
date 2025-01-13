@@ -141,11 +141,15 @@ function saveScores(sport, matchIndex, matches) {
         matches[matchIndex].scoreA = parseInt(scoreA, 10);
         matches[matchIndex].scoreB = parseInt(scoreB, 10);
 
+        // Derive the match_no based on the matchIndex
+        const matchNo = matchIndex + 1; // Match number is the index + 1 (e.g., match 1, match 2, etc.)
+
         // Send AJAX request to save the scores in the database
         const match = matches[matchIndex]; // Get the match details
         const matchId = match.matchCode; // Match ID
         const data = {
             match_id: matchId,
+            match_no: matchNo, // Add match_no here
             team1_score: scoreA,
             team2_score: scoreB,
             _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF token for security
@@ -160,27 +164,23 @@ function saveScores(sport, matchIndex, matches) {
             body: JSON.stringify(data),
         })
         .then(response => response.json())
-.then(data => {
-    if (data.success) {
-        // Update the score table immediately
-        updateScoreTable(sport, match);
+        .then(data => {
+            if (data.success) {
+                // Update the score table immediately
+                updateScoreTable(sport, match);
 
-        // Fetch and display the latest scores for this sport
-        fetchScoresForSport(sport);
+                // Disable inputs and the save button for the saved match
+                document.getElementById(`scoreA-${sport}-${matchIndex}`).disabled = true;
+                document.getElementById(`scoreB-${sport}-${matchIndex}`).disabled = true;
 
-        // Disable inputs and the save button for the saved match
-        document.getElementById(`scoreA-${sport}-${matchIndex}`).disabled = true;
-        document.getElementById(`scoreB-${sport}-${matchIndex}`).disabled = true;
-
-        const saveButton = document.getElementById(`saveBtn-${sport}-${matchIndex}`);
-        if (saveButton) {
-            saveButton.disabled = true;
-        }
-    } else {
-        alert('Failed to save the score. Please try again.');
-    }
-})
-
+                const saveButton = document.getElementById(`saveBtn-${sport}-${matchIndex}`);
+                if (saveButton) {
+                    saveButton.disabled = true;
+                }
+            } else {
+                alert('Failed to save the score. Please try again.');
+            }
+        })
         .catch(error => console.error('Error:', error));
     }
 }

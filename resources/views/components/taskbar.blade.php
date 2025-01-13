@@ -31,7 +31,7 @@
                 @else
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('score.input') }}">LIVE SCORE</a></li>
+                    <li><a href="{{ route('score.view') }}">LIVE SCORE</a></li>
                 @endif
             </ul>
         </div>
