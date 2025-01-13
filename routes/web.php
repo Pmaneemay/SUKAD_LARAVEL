@@ -48,3 +48,6 @@ Route::get('/getAnnouncements', [C_AnnouncementController::class, 'getAnnounceme
 
 // Route to display the score input page
 Route::get('/score-input', [A_ScoreController::class, 'showScoreInput'])->name('score.input');
+Route::post('/save-scores', [A_ScoreController::class, 'saveScores']);
+Route::get('/get-scores/{sport}', [ScoreController::class, 'getScores']);
+
