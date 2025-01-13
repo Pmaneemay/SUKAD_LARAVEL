@@ -9,19 +9,19 @@
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('score.input') }}">LIVE SCORE</a></li>
+                    <li><a href="{{ route('score.view') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'DSAD')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('score.input') }}">LIVE SCORE</a></li>
+                    <li><a href="{{ route('score.view') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'STUD')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('bookings.past') }}">VIEW BOOKED FACILITIES</a></li>
                     <li><a href="{{ route('TeamManagementPage') }}">TEAM MANAGEMENT</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>
-                    <li><a href="{{ route('score.input') }}">LIVE SCORE</a></li>
+                    <li><a href="{{ route('score.view') }}">LIVE SCORE</a></li>
                 @elseif(session('role') == 'EORG')
                     <li><a href="{{ route('HomePage') }}">HOME</a></li>
                     <li><a href="{{ route('getMatchups') }}">MATCHUP SCHEDULE</a></li>

@@ -51,6 +51,3 @@ Route::get('/score-input', [A_ScoreController::class, 'showScoreInput'])->name('
 Route::post('/save-scores', [A_ScoreController::class, 'saveScores']);
 Route::get('/score-view', [A_ScoreController::class, 'showViewScore'])->name('score.view');
 
-
-Route::get('/get-scores/{sport}', [ScoreController::class, 'getScores']);
-
