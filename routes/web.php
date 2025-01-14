@@ -19,6 +19,12 @@ Route::get('/TeamManagementPage', [M_TeamManagementController::class, 'getTeamMa
 Route::get('/getManagers',[M_TeamManagementController::class, 'getAllTeamManagers'])->name('getManagers');
 Route::get('/getClubs',[M_TeamManagementController::class, 'getClubs'])->name('getClubs');
 Route::Post('/CreateEditManager',[M_TeamManagementController::class, 'create_edit_manager'])->name('CreateEditManager');
+Route::Delete('/deleteManager',[M_TeamManagementController::class, 'delete_manager'])->name('deleteManager');
+Route::get('/getSportTeams',[M_TeamManagementController::class, 'getSportTeams'])->name('getSportTeams');
+Route::get('/getSelectionEvents',[M_TeamManagementController::class, 'getSelectionEvents'])->name('getSelectionEvents');
+Route::Post('/Registerselection',[M_TeamManagementController::class, 'register_selection'])->name('Registerselection');
+Route::get('/getRegistered',[M_TeamManagementController::class, 'getRegistered'])->name('getRegistered');
+Route::Delete('/deleteRegistration',[M_TeamManagementController::class, 'delete_registration'])->name('deleteRegistration');
 
 // Facility Booking Routes
 Route::middleware(['web'])->group(function () {

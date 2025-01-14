@@ -28,7 +28,7 @@
                         <td>
                             <div class="button-group">
                                 <button class="deleteBtn" data-id="{{ $manager->user_id }}">Delete</button>
-                                <button class="editBtn" data-name="{{ $manager->user_id }}">Edit</button>
+                                <button class="editBtn" data-id="{{ $manager->user_id }}" data-club_id="{{ $manager->club_id }}">Edit</button>
                             </div>
                         </td>
                     </tr>

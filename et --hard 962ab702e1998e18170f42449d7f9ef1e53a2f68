@@ -1,0 +1,152 @@
+[33mcommit 1961742ee8a7309b817f67116dd7a628cdd2df33[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Merge: 962ab70 4fcd305
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sun Jan 12 18:40:38 2025 +0800
+
+    Merge branch 'main' of https://github.com/Pmaneemay/SUKAD_LARAVEL
+    fetch latest update from github
+
+[33mcommit 962ab702e1998e18170f42449d7f9ef1e53a2f68[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sun Jan 12 18:40:32 2025 +0800
+
+    add managers
+
+[33mcommit 4fcd305edfffaafd57238dc2505c25f356f15e82[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: rabiatuladawiyahnordin <rabiatul23052002@student.usm.my>
+Date:   Sun Jan 12 03:51:13 2025 +0800
+
+    added my pages
+
+[33mcommit cd8ac841bc3b119b0a8d113d3ee2445e2ec41f97[m
+Author: cmariyah <122621008+cmariyah@users.noreply.github.com>
+Date:   Sat Jan 11 23:48:45 2025 +0800
+
+    TOUCHUP CHUSNUL
+
+[33mcommit f1dc0bf4b36dab6e1bc03840d8ab519bf9620fe1[m
+Author: cmariyah <122621008+cmariyah@users.noreply.github.com>
+Date:   Sat Jan 11 22:55:47 2025 +0800
+
+    ANNOUNCEMENT PAGE CHUSNUL
+
+[33mcommit 59f76abea891dba0897dbbe93090a3ea83e3cf3e[m
+Author: cmariyah <122621008+cmariyah@users.noreply.github.com>
+Date:   Sat Jan 11 20:16:55 2025 +0800
+
+    HOMEPAGE CHUSNUL
+
+[33mcommit 07c255fcfe6756db98be871ef41bfd8881777101[m
+Author: cmariyah <122621008+cmariyah@users.noreply.github.com>
+Date:   Sat Jan 11 16:40:17 2025 +0800
+
+    C_MATCHUPSCHEDULE MODULE 2ND VERSION
+
+[33mcommit d338ccc3316a4f498b6087afae46bb091515697d[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sat Jan 11 15:07:56 2025 +0800
+
+    getmanagers
+
+[33mcommit 76b382e1255f1ac67cb835d047ef7dbbee34e97e[m
+Merge: 7a44d56 4b0a2fd
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sat Jan 11 13:51:46 2025 +0800
+
+    Merge branch 'main' of https://github.com/Pmaneemay/SUKAD_LARAVEL
+
+[33mcommit 7a44d56a15e78f8db87629053d5912a196a499df[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sat Jan 11 13:51:40 2025 +0800
+
+    getmanagers
+
+[33mcommit 4b0a2fdbe4c72db4b08e686c941f8fd71ec3a0a1[m
+Author: hasif <hasif@hasifs-MacBook-Air.local>
+Date:   Sat Jan 11 13:50:08 2025 +0800
+
+    hasif's latest
+
+[33mcommit 95b3195d70ecaa1ffb3c4cda1b3799bbfa0be8db[m
+Author: cmariyah <122621008+cmariyah@users.noreply.github.com>
+Date:   Fri Jan 10 18:39:12 2025 +0800
+
+    CHUS MATCHUP 1ST VERSION 2.0
+
+[33mcommit 02c5c4ebca22aa5ac5f5057b92fa5cb57fd04a53[m
+Author: cmariyah <122621008+cmariyah@users.noreply.github.com>
+Date:   Fri Jan 10 18:34:12 2025 +0800
+
+    CHUS 1ST VERSION MATCHUP MODULE
+
+[33mcommit 05c27de4262f6bb03d8a18532402168d5eec6982[m
+Author: hasif <hasif@hasifs-MacBook-Air.local>
+Date:   Fri Jan 10 17:32:51 2025 +0800
+
+    hey
+
+[33mcommit cf5aef75743c5b5c4b25ad1ec7acfcd1a29d3f3c[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Thu Jan 9 15:32:45 2025 +0800
+
+    modify authentication method
+
+[33mcommit 410427d02bee8185673d1b605064afb118df6e2f[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sun Jan 5 22:24:01 2025 +0800
+
+    set up database for production enevironment
+
+[33mcommit fa41e50c61ec765fff33873b9ee0f06337d73cb4[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Mon Dec 30 14:19:15 2024 +0800
+
+    set up database for production enevironment
+
+[33mcommit 87c86ce080d5a524f828d70d6f228b941d340983[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Mon Dec 30 12:15:01 2024 +0800
+
+    initialised deployement environment
+
+[33mcommit 97e3973d2f6f91d04f721080b2e380e067bcabdf[m
+Author: Pmaneemay <93761027+Pmaneemay@users.noreply.github.com>
+Date:   Mon Dec 30 05:21:08 2024 +0800
+
+    Add or update the Azure App Service build and deployment workflow config
+
+[33mcommit 4573ad3dd9725eeca83d844ab9cc2ec85c0cda54[m
+Author: Pmaneemay <93761027+Pmaneemay@users.noreply.github.com>
+Date:   Mon Dec 30 04:25:52 2024 +0800
+
+    Delete .github/workflows/main_sukad.yml
+
+[33mcommit 1a4e53c41715bcc9d92e07390b2061340ae5b492[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Mon Dec 30 03:57:18 2024 +0800
+
+    test deploy
+
+[33mcommit 7bf006d83ca088e414537cc2d8ea4bfb15bc3df8[m
+Author: Pmaneemay <93761027+Pmaneemay@users.noreply.github.com>
+Date:   Mon Dec 30 03:30:37 2024 +0800
+
+    Add or update the Azure App Service build and deployment workflow config
+
+[33mcommit d77c0c99bf70f0f4483be7292439feb6a0172fca[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sat Dec 28 17:07:20 2024 +0800
+
+    create team management nav item
+
+[33mcommit 88f3ad50bf2788973ef87a26c44cc090532f0546[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sat Dec 28 16:16:38 2024 +0800
+
+    add team management view and controller
+
+[33mcommit c9d2bb132fefe2c8abdab7d4f39d8722f0ba7b4e[m
+Author: Pmaneemay <mayratdaa.pmanee@gmail.com>
+Date:   Sat Dec 28 14:09:48 2024 +0800
+
+    set up database and log in
