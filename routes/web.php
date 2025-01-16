@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\C_AnnouncementController;
 use App\Http\Controllers\C_MatchupScheduleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\M_AuthenticationController;
 use App\Http\Controllers\M_TeamManagementController;
 use App\Http\Controllers\FacilityBookingController;
+use App\Http\Controllers\A_ScoreController;
 
 // Home Page Route
 Route::view('/', 'Home')->name('HomePage');
@@ -42,4 +44,18 @@ Route::post('/startSukad', [C_MatchupScheduleController::class, 'startSukad'])->
 Route::post('/endSukad', [C_MatchupScheduleController::class, 'endSukad'])->name('endSukad');
 Route::get('/getMatchupsData', [C_MatchupScheduleController::class, 'getMatchups'])->name('getMatchupsData'); 
 Route::get('/getSukadStatus', [C_MatchupScheduleController::class, 'getSukadStatus'])->name('getSukadStatus');
+
+//Announcement Routes
+Route::get('/Announcement', [C_AnnouncementController::class, 'getAnnouncementPage'])->name('Announcement');
+Route::post('/saveAnnouncement', [C_AnnouncementController::class, 'saveAnnouncement'])->name('saveAnnouncement');
+Route::get('/getAnnouncements', [C_AnnouncementController::class, 'getAnnouncements'])->name('getAnnouncements');
+
+// Score Input Routes
+//Route::get('/score-input', [A_ScoreController::class, 'showScoreInput'])->name('score.input');
+//Route::post('/submit-score', [A_ScoreController::class, 'submitScore'])->name('score.submit');
+
+// Route to display the score input page
+Route::get('/score-input', [A_ScoreController::class, 'showScoreInput'])->name('score.input');
+Route::post('/save-scores', [A_ScoreController::class, 'saveScores']);
+Route::get('/score-view', [A_ScoreController::class, 'showViewScore'])->name('score.view');
 

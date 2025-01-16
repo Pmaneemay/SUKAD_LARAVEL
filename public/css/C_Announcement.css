@@ -1,0 +1,86 @@
+/* Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f3f3;
+    text-align: center;
+}
+
+/* Announcement Form */
+.announcement-form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding-top: 100px;
+}
+
+/* Title for the Announcement */
+.title-schedule h1 {
+    font-size: 2.5rem;             /* Make the title larger */
+    font-weight: bold;             /* Ensure the title is bold */
+    color: #000;                   /* Black color for the title */
+    margin-bottom: 30px;           /* Add space below the title */
+}
+
+/* Textarea Styling */
+textarea {
+    width: 100%;                    /* Set width to 100% to make it responsive */
+    max-width: 1000px;              /* Limit max width for larger screens */
+    height: 200px;                  /* Make the textarea bigger */
+    margin-bottom: 30px;            /* Increase space below the textarea */
+    font-size: 1.2rem;              /* Larger font inside the textarea */
+    padding: 10px;                  /* Add padding to the textarea */
+    border: 2px solid #ccc;         /* Define a border for the textarea */
+    border-radius: 10px;            /* Rounded corners for the textarea */
+    box-sizing: border-box;         /* Include padding in the total width/height */
+}
+
+/* Format Options Section */
+.format-options {
+    display: flex;
+    flex-wrap: wrap;                /* Allow wrapping of items */
+    justify-content: center;        /* Center align the items */
+    gap: 30px;                      /* Increase space between input elements */
+    margin-bottom: 30px;            /* Increase space below the options */
+    width: 100%;                    /* Ensure it spans the full container width */
+}
+
+/* Labels */
+.format-options label {
+    font-size: 1.2rem;              /* Increase the font size for labels */
+    color: black;
+}
+
+/* Inputs (Color, Checkbox, File Upload) */
+.format-options input[type="color"],
+.format-options input[type="checkbox"],
+.format-options input[type="file"] {
+    margin-top: 5px;                /* Add top margin for input fields */
+    font-size: 1.0rem;              /* Increase the font size for inputs */
+}
+
+/* Save Announcement Button */
+button {
+    font-size: 1.5rem;              /* Make the button text larger */
+    padding: 15px 30px;             /* Increase the padding for bigger button size */
+    background-color: #194d9b;      /* Green background color */
+    color: white;
+    border: none;
+    border-radius: 8px;             /* Rounded corners for the button */
+    cursor: pointer;
+    margin-top: 20px;               /* Add space above the button */
+    width: 100%;                     /* Make the button take up half the width */
+}
+
+/* Button Hover Effect */
+button:hover {
+    transform: scale(1.10);
+}
+
+footer {
+    background-color: #194d9b;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

@@ -89,90 +89,82 @@
         updateSukadButtons();
 
         function startSukad() {
-
             // Disable the "START SUKAD" button and enable the "END SUKAD" button
             document.getElementById('start-button').disabled = true;
             document.getElementById('end-button').disabled = false;
 
             const matchupsDiv = document.getElementById('matchups');
-            matchupsDiv.innerHTML = '';  // Clear previous content
+            matchupsDiv.innerHTML = ''; // Clear previous content
 
-            document.getElementById('matchups').innerHTML = ''; 
+            displayNotification("Starting the SUKAD event...", 5000)
+                .then(() => {
+                    return fetch("{{ route('startSukad') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    closeNotification();
+                    matchupsDiv.innerHTML = '';
 
-            // Make an AJAX request to the startSukad route
-            fetch("{{ route('startSukad') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
+                    // Show a success notification
+                    showNotification("SUKAD has started! Schedules generated for all sports.");
+                })
+                .catch(error => {
+                    closeNotification();
+                    console.error('Error starting SUKAD:', error);
 
-                document.getElementById('matchups').innerHTML = ''; 
-
-                // Show a success notification
-                showNotification("SUKAD has started! Schedules generated for all sports.");
-            })
-            .catch(error => {
-                console.error('Error starting SUKAD:', error);
-
-                document.getElementById('matchups').innerHTML = ''; 
-
-                // Show an error notification
-                showNotification("SUKAD has started! Schedules generated for all sports.");
-            });
-
-            // Disable the "START SUKAD" button and enable the "END SUKAD" button
+                    matchupsDiv.innerHTML = '';
+                    showNotification("SUKAD has started! Schedules generated for all sports.");
+                });
+            
             document.getElementById('start-button').disabled = true;
             document.getElementById('end-button').disabled = false;
         }
 
         function endSukad() {
-            // Add a confirmation dialog
             if (!confirm("Are you sure you want to end SUKAD? This will delete all matchup schedules.")) {
-                    return; // Cancel if the user clicks "Cancel"
+                return; // Cancel if the user clicks "Cancel"
             }
 
             const matchupsDiv = document.getElementById('matchups');
-            matchupsDiv.innerHTML = '';  // Clear previous content
+            matchupsDiv.innerHTML = ''; // Clear previous content
 
             // Disable the "END SUKAD" button and enable the "START SUKAD" button
             document.getElementById('end-button').disabled = true;
             document.getElementById('start-button').disabled = false;
 
-            fetch("{{ route('endSukad') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Hide the loading state
-                document.getElementById('loading').style.display = 'none';
+            displayNotification("Ending the SUKAD event...", 3000) 
+                .then(() => {
+                    return fetch("{{ route('endSukad') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Show a success notification
+                    showNotification(data.message);
 
-                // Show a success notification
-                showNotification(data.message);
+                    // Clear the displayed matchups
+                    matchupsDiv.innerHTML = "<p class='no-matchups-message'>No matchups available. SUKAD has not yet started.</p>"; 
+                })
+                .catch(error => {
+                    console.error('Error ending SUKAD:', error);
 
-                // Clear the displayed matchups
-                document.getElementById('matchups').innerHTML = ''; 
-                matchupsDiv.innerHTML = "<p class='no-matchups-message'>No matchups available. SUKAD has not yet started.</p>";
-            })
-            .catch(error => {
-                console.error('Error ending SUKAD:', error);
+                    // Show an error notification
+                    showNotification('An error occurred while ending SUKAD.');
 
-                // Hide the loading state
-                document.getElementById('loading').style.display = 'none';
-
-                // Show an error notification
-                showNotification('An error occurred while ending SUKAD.');
-
-                // Re-enable the "END SUKAD" button
-                document.getElementById('end-button').disabled = false; 
-            });
+                    // Re-enable the "END SUKAD" button
+                    document.getElementById('end-button').disabled = false; 
+                });
         }
 
         function loadMatchups(sport) {
@@ -287,7 +279,6 @@
             }
         }
 
-
         function showNotification(message) {
             const modal = document.getElementById('notification-modal');
             const messageElement = document.getElementById('notification-message');
@@ -302,6 +293,21 @@
             setTimeout(() => {
                 closeNotification();
             }, 2000);
+        }
+
+        function displayNotification(message, delay = 5000) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('notification-modal');
+                const messageElement = document.getElementById('notification-message');
+
+                messageElement.textContent = message;
+                modal.style.display = 'flex';
+
+                setTimeout(() => {
+                    closeNotification();
+                    resolve(); 
+                }, delay);
+            });
         }
 
         function closeNotification() {
