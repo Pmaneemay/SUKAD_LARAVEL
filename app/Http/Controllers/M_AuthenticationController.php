@@ -31,9 +31,11 @@ class M_AuthenticationController extends Controller
         return back()->withErrors(['email' => 'Invalid credentials.']);
     }
 
-    public function Logout (){
+    public function Logout (Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
         Session::flush();
-
+        $request->session()->regenerateToken();
         return redirect()->route('HomePage');
 
     }
