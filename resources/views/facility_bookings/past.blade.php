@@ -41,8 +41,18 @@
                     <td>{{ $booking->manager?->desasiswa?->desasiswa_name ?? 'Unknown Desasiswa' }}</td> <!-- Display Desasiswa Name -->
                     @if (auth()->user()->role === 'EORG')
                         <td>
-                            <button class="btn btn-success btn-sm update-status" data-id="{{ $booking->id }}" data-status="Approved">Approve</button>
-                            <button class="btn btn-danger btn-sm update-status" data-id="{{ $booking->id }}" data-status="Rejected">Reject</button>
+                            <form action="{{ route('bookings.update-status', $booking->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="status" value="Approved">
+                                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                            </form>
+                            <form action="{{ route('bookings.update-status', $booking->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="status" value="Rejected">
+                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                            </form>
                         </td>
                     @endif
                 </tr>
