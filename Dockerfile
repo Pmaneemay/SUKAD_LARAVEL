@@ -51,6 +51,8 @@ COPY .fly/supervisor/ /etc/supervisor/
 COPY .fly/entrypoint.sh /entrypoint
 COPY .fly/start-nginx.sh /usr/local/bin/start-nginx
 RUN chmod 754 /usr/local/bin/start-nginx
+
+COPY ca.pem /etc/ssl/certs/ca.pem
     
 # 3. Copy application code, skipping files based on .dockerignore
 COPY . /var/www/html

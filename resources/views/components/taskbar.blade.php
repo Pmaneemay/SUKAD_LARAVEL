@@ -42,7 +42,7 @@
                     <a href="{{ route('logout') }}">LOGOUT</a>
                 </div>
             @else
-                <a href="{{ route('LoginPage') }}">
+                <a href="{{ route('login') }}">
                     <button>LOGIN</button>
                 </a>
             @endif

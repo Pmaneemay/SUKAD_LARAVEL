@@ -17,8 +17,12 @@ console_command = 'php /var/www/html/artisan tinker'
   LOG_CHANNEL = 'stderr'
   LOG_LEVEL = 'info'
   LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
-  SESSION_DRIVER = 'cookie'
-  SESSION_SECURE_COOKIE = 'true'
+  SESSION_DRIVER = 'database'
+  DB_CONNECTION='mysql'
+  DB_HOST ='mysql-1b88aba-mayratdaa-8e6f.d.aivencloud.com'
+  DB_PORT='24583'
+  DB_DATABASE='sukad'
+  MYSQL_ATTR_SSL_CA='/etc/ssl/certs/ca.pem'
 
 [http_service]
   internal_port = 8080

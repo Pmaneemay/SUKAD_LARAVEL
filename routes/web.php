@@ -12,9 +12,9 @@ use App\Http\Controllers\A_ScoreController;
 Route::view('/', 'Home')->name('HomePage');
 
 // Authentication Routes
-Route::get('/LoginPage', [M_AuthenticationController::class, 'getLoginPage'])->name('LoginPage');
-Route::post('/Login', [M_AuthenticationController::class, 'login'])->name('login.submit');
-Route::get('/Logout', [M_AuthenticationController::class, 'logout'])->name('logout');
+Route::get('/login', [M_AuthenticationController::class, 'getLoginPage'])->name('login');
+Route::post('/login', [M_AuthenticationController::class, 'login'])->name('login.submit');
+Route::get('/logout', [M_AuthenticationController::class, 'logout'])->name('logout');
 
 // Team Management Routes
 Route::get('/TeamManagementPage', [M_TeamManagementController::class, 'getTeamManagementPage'])->name('TeamManagementPage');
@@ -29,7 +29,7 @@ Route::get('/getRegistered',[M_TeamManagementController::class, 'getRegistered']
 Route::Delete('/deleteRegistration',[M_TeamManagementController::class, 'delete_registration'])->name('deleteRegistration');
 
 // Facility Booking Routes
-Route::middleware(['web'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/bookings', [FacilityBookingController::class, 'index'])->name('bookings.index');
     Route::post('/bookings', [FacilityBookingController::class, 'store'])->name('bookings.store');
     Route::get('/past-bookings', [FacilityBookingController::class, 'pastBookings'])->name('bookings.past');
