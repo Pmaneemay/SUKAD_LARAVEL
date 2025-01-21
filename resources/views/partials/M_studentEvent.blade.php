@@ -13,7 +13,11 @@
         </thead>
         <tbody>
             @foreach($registered as $item)
-                <tr style="border-bottom: 1px solid #ccc;">
+                <tr style="border-bottom: 1px solid #ccc;"
+                data-selection_id="{{$item->selection_id}}"
+                data-selection_team="{{ $item->club_name }}"
+                data-selection_team_id="{{ $item->club_id }}"
+                data-selection_status="{{$item->status_type}}">
                     <td>
                         <div>{{ $item->club_name }}</div>
                         <span>

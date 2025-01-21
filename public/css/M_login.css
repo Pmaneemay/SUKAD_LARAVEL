@@ -111,6 +111,17 @@ body {
     background-color: #4b6fc1;
 }
 
+.signup-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.signup-link a {
+    color: #4b6fc1;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .horizontal-container {
@@ -127,4 +138,6 @@ body {
         margin-left: 0;
         padding: 30px;
     }
+
+
 }

@@ -7,26 +7,36 @@ use App\Http\Controllers\M_AuthenticationController;
 use App\Http\Controllers\M_TeamManagementController;
 use App\Http\Controllers\FacilityBookingController;
 use App\Http\Controllers\A_ScoreController;
+use App\Http\Middleware\RoleMiddleware;
 
 // Home Page Route
 Route::view('/', 'Home')->name('HomePage');
 
 // Authentication Routes
 Route::get('/login', [M_AuthenticationController::class, 'getLoginPage'])->name('login');
-Route::post('/login', [M_AuthenticationController::class, 'login'])->name('login.submit');
+Route::get('/signup', [M_AuthenticationController::class, 'getSignupPage'])->name('signup');
+Route::post('/login_submit', [M_AuthenticationController::class, 'login'])->name('login.submit');
+Route::post('/signup_submit', [M_AuthenticationController::class, 'signup'])->name('signup.submit');
 Route::get('/logout', [M_AuthenticationController::class, 'logout'])->name('logout');
 
-// Team Management Routes
-Route::get('/TeamManagementPage', [M_TeamManagementController::class, 'getTeamManagementPage'])->name('TeamManagementPage');
-Route::get('/getManagers',[M_TeamManagementController::class, 'getAllTeamManagers'])->name('getManagers');
-Route::get('/getClubs',[M_TeamManagementController::class, 'getClubs'])->name('getClubs');
-Route::Post('/CreateEditManager',[M_TeamManagementController::class, 'create_edit_manager'])->name('CreateEditManager');
-Route::Delete('/deleteManager',[M_TeamManagementController::class, 'delete_manager'])->name('deleteManager');
-Route::get('/getSportTeams',[M_TeamManagementController::class, 'getSportTeams'])->name('getSportTeams');
-Route::get('/getSelectionEvents',[M_TeamManagementController::class, 'getSelectionEvents'])->name('getSelectionEvents');
-Route::Post('/Registerselection',[M_TeamManagementController::class, 'register_selection'])->name('Registerselection');
-Route::get('/getRegistered',[M_TeamManagementController::class, 'getRegistered'])->name('getRegistered');
-Route::Delete('/deleteRegistration',[M_TeamManagementController::class, 'delete_registration'])->name('deleteRegistration');
+// Team Management Routes  
+Route::middleware(['auth',roleMiddleware::class.':DSAD,TMNG,STUD'])->group(function (){
+    Route::get('/TeamManagementPage', [M_TeamManagementController::class, 'getTeamManagementPage'])->name('TeamManagementPage');
+    Route::get('/getManagers',[M_TeamManagementController::class, 'getAllTeamManagers'])->name('getManagers');
+    Route::get('/getRegistrationCode',[M_TeamManagementController::class, 'getRegistrationCode'])->name('getRegistrationCode');
+    Route::get('/getClubs',[M_TeamManagementController::class, 'getClubs'])->name('getClubs');
+    Route::Post('/CreateEditManager',[M_TeamManagementController::class, 'create_edit_manager'])->name('CreateEditManager');
+    Route::Delete('/deleteManager',[M_TeamManagementController::class, 'delete_manager'])->name('deleteManager');
+    Route::get('/getSportTeams',[M_TeamManagementController::class, 'getSportTeams'])->name('getSportTeams');
+    Route::get('/getSelectionEvents',[M_TeamManagementController::class, 'getSelectionEvents'])->name('getSelectionEvents');
+    Route::Post('/Registerselection',[M_TeamManagementController::class, 'register_selection'])->name('Registerselection');
+    Route::get('/getRegistered',[M_TeamManagementController::class, 'getRegistered'])->name('getRegistered');
+    Route::Delete('/deleteRegistration',[M_TeamManagementController::class, 'delete_registration'])->name('deleteRegistration');
+    Route::get('/getClubSelection',[M_TeamManagementController::class, 'getClubSelection'])->name('getClubSelection');
+    Route::Post('/updateParticipantStatus',[M_TeamManagementController::class, 'update_ParticipantStatus'])->name('updateParticipantStatus');
+    Route::Post('/Acceptselection',[M_TeamManagementController::class, 'accept_selection'])->name('Acceptselection');
+    Route::Post('/Event_Submit',[M_TeamManagementController::class, 'create_edit_event'])->name('Event.submit');
+});
 
 // Facility Booking Routes
 Route::middleware(['auth'])->group(function () {

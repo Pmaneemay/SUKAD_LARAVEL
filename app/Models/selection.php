@@ -14,4 +14,9 @@ class Selection extends Model
     {
         return $this->belongsTo(Club::class, 'club_id', 'club_id');
     }
+
+    public function participants(){
+        return $this->hasMany(Participant::class, 'selection_id', 'selection_id');
+    }
+
 }
