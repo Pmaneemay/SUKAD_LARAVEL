@@ -4,6 +4,9 @@
 
 @section('content')
 <div class="container">
+    <!-- Alert Container -->
+    <div id="alert-container"></div>
+
     <h1 class="text-center my-4">Past Bookings</h1>
 
     <table class="table table-striped">
@@ -41,18 +44,8 @@
                     <td>{{ $booking->manager?->desasiswa?->desasiswa_name ?? 'Unknown Desasiswa' }}</td> <!-- Display Desasiswa Name -->
                     @if (auth()->user()->role === 'EORG')
                         <td>
-                            <form action="{{ route('bookings.update-status', $booking->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('POST')
-                                <input type="hidden" name="status" value="Approved">
-                                <button type="submit" class="btn btn-success btn-sm">Approve</button>
-                            </form>
-                            <form action="{{ route('bookings.update-status', $booking->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('POST')
-                                <input type="hidden" name="status" value="Rejected">
-                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                            </form>
+                            <button class="btn btn-success btn-sm update-status" data-id="{{ $booking->id }}" data-status="Approved">Approve</button>
+                            <button class="btn btn-danger btn-sm update-status" data-id="{{ $booking->id }}" data-status="Rejected">Reject</button>
                         </td>
                     @endif
                 </tr>
@@ -64,29 +57,54 @@
 
 @push('scripts')
 <script>
-    $(document).on('click', '.update-status', function () {
-        const bookingId = $(this).data('id');
-        const status = $(this).data('status');
+    $(document).on('click', '.update-status', function (e) {
+        e.preventDefault(); // Prevent default behavior
 
+        const bookingId = $(this).data('id'); // Get booking ID
+        const status = $(this).data('status'); // Get status to update
+
+        // Perform AJAX request
         $.ajax({
-            url: `/bookings/${bookingId}/update-status`,
-            type: 'POST',
+            url: `/bookings/${bookingId}/update-status`, // Backend route
+            type: 'POST', // HTTP method
             data: {
-                _token: "{{ csrf_token() }}",
-                status: status,
+                _token: "{{ csrf_token() }}", // CSRF token
+                status: status, // Status to update
             },
             success: function (response) {
-                // Update the status on the page
+                // Clear the alert container before adding a new message
+                $("#alert-container").empty();
+
+                // Update the status badge dynamically
                 $(`#status-${bookingId}`).html(`
                     <span class="badge bg-${status === 'Approved' ? 'success' : 'danger'}">
                         ${status}
                     </span>
                 `);
-                alert('Booking status updated successfully!');
+
+                // Display a success message
+                const successMessage = `
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        ${response.success}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+                $("#alert-container").append(successMessage); // Insert into the alert container
             },
             error: function (xhr) {
-                alert(xhr.responseJSON?.error || 'An error occurred. Please try again.');
-            }
+                // Clear the alert container before adding a new message
+                $("#alert-container").empty();
+
+                // Handle errors
+                const errorMessage = xhr.responseJSON?.error || 'An error occurred. Please try again.';
+                const errorAlert = `
+                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                        ${errorMessage}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+                $("#alert-container").append(errorAlert); // Insert error message into the alert container
+            },
         });
     });
 </script>
