@@ -134,9 +134,9 @@ class M_AuthenticationController extends Controller
     }
 
     public function Logout (Request $request){
-        Auth::logout();
         $request->session()->invalidate();
         Session::flush();
+        Auth::logout();
         $request->session()->regenerateToken();
         return redirect()->route('HomePage');
 

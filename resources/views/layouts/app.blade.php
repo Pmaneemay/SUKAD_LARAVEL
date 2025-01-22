@@ -22,7 +22,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom Scripts -->
-    <script src="{{ asset('js/C_taskbar.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

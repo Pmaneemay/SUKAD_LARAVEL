@@ -1033,6 +1033,21 @@ function handleUpdateButtonClick(updateButton) {
     }
 }
 
+function handlePriorityVisibility(select) {
+            const associatedPriorityInput = select.closest('tr').querySelector('.priority-input');
+            const associatedPriorityText = select.closest('tr').querySelector('.priority-text');
+
+            if (select.value === '3') {
+                associatedPriorityText.style.display = 'none';
+                associatedPriorityInput.style.display = 'inline-block';
+                associatedPriorityInput.disabled = false;
+            } else {
+                associatedPriorityText.style.display = 'inline-block';
+                associatedPriorityText.textContent = '-';
+                associatedPriorityInput.style.display = 'none';
+            }
+        }
+
 function update_participants_status() {
     const table = document.querySelector('.registration-table');
     const studentData = [];

@@ -60,10 +60,6 @@ Route::get('/Announcement', [C_AnnouncementController::class, 'getAnnouncementPa
 Route::post('/saveAnnouncement', [C_AnnouncementController::class, 'saveAnnouncement'])->name('saveAnnouncement');
 Route::get('/getAnnouncements', [C_AnnouncementController::class, 'getAnnouncements'])->name('getAnnouncements');
 
-// Score Input Routes
-//Route::get('/score-input', [A_ScoreController::class, 'showScoreInput'])->name('score.input');
-//Route::post('/submit-score', [A_ScoreController::class, 'submitScore'])->name('score.submit');
-
 // Route to display the score input page
 Route::get('/score-input', [A_ScoreController::class, 'showScoreInput'])->name('score.input');
 Route::post('/save-scores', [A_ScoreController::class, 'saveScores']);
