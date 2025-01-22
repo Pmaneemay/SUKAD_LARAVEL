@@ -132,21 +132,27 @@ class FacilityBookingController extends Controller
      * Update the status of a booking.
      */
     public function updateStatus(Request $request, $id)
-    {
-        $request->validate([
-            'status' => 'required|in:Approved,Rejected',
-        ]);
-//find booking by ID
-        $booking = FacilityBooking::findOrFail($id);
+{
+    $request->validate([
+        'status' => 'required|in:Approved,Rejected',
+    ]);
 
-        // Only allow EORG to update statuses
-        if (auth()->user()->role !== 'EORG') {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-        //update status
-        $booking->status = $request->status;
-        $booking->save();
+    // Find the booking by ID
+    $booking = FacilityBooking::findOrFail($id);
 
-        return response()->json(['success' => 'Booking status updated successfully!']);
+    // Ensure only EORG can update statuses
+    if (auth()->user()->role !== 'EORG') {
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
+
+    // Update the booking status
+    $booking->status = $request->status;
+    $booking->save();
+
+    // Return a JSON response
+    return response()->json([
+        'success' => 'Booking status updated successfully!',
+        'status' => $booking->status,
+    ]);
+}
 }
